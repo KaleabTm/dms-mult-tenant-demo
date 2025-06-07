@@ -1,17 +1,20 @@
 from django.db import models
-from django_tenants.models import TenantMixin, DomainMixin
+from django_tenants.models import DomainMixin, TenantMixin
+
 from core.common.models import BaseModel
+
 
 class Tenant(BaseModel, TenantMixin):
     tenant_name_am = models.CharField(max_length=100)
     tenant_name_en = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
-    paid_until =  models.DateField(null=True, blank=True)
+    paid_until = models.DateField(null=True, blank=True)
     on_trial = models.BooleanField(null=True, blank=True)
 
     # default true, schema will be automatically created and synced when it is saved
     auto_create_schema = True
+
 
 class Domain(BaseModel, DomainMixin):
     domain = models.CharField(max_length=255, unique=True)  # e.g. company1.example.com
@@ -41,8 +44,8 @@ class Membership(BaseModel):
     def get_role(self):
         if self.is_admin:
             return "admin"
-        elif self.is_staff:
+        if self.is_staff:
             return "staff"
-        elif self.is_kioskuser:
+        if self.is_kioskuser:
             return "kioskuser"
         return "none"

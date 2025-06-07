@@ -55,7 +55,6 @@ SHARED_APPS = [
     "django.contrib.messages",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
-
     # Shared third-party and local
     *SHARED_THIRD_PARTY_APPS,
     *SHARED_LOCAL_APPS,
@@ -70,13 +69,13 @@ TENANT_APPS = [
 INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
 
-TENANT_MODEL="tenants.Tenant"
+TENANT_MODEL = "tenants.Tenant"
 
 TENANT_DOMAIN_MODEL = "tenants.Domain"
 
 
 MIDDLEWARE: list[str] = [
-    'django_tenants.middleware.main.TenantMainMiddleware',
+    "django_tenants.middleware.main.TenantMainMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -123,7 +122,7 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django_tenants.postgresql_backend',
+        "ENGINE": "django_tenants.postgresql_backend",
         "NAME": env.str("DB_NAME"),
         "USER": env.str("DB_USER"),
         "PASSWORD": env.str("DB_PASSWORD"),
@@ -133,9 +132,7 @@ DATABASES = {
 }
 
 
-DATABASE_ROUTERS = (
-    'django_tenants.routers.TenantSyncRouter',
-)
+DATABASE_ROUTERS = ("django_tenants.routers.TenantSyncRouter",)
 
 
 # Password validation
@@ -198,9 +195,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 ANONYMOUS_USER_NAME = None
-GUARDIAN_GET_CONTENT_TYPE = (
-    "polymorphic.contrib.guardian.get_polymorphic_base_content_type"
-)
+GUARDIAN_GET_CONTENT_TYPE = "polymorphic.contrib.guardian.get_polymorphic_base_content_type"
 
 from config.settings.logging import *  # noqa
 from config.settings.cors import *  # noqa

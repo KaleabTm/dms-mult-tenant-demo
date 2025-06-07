@@ -1,10 +1,10 @@
+from django.contrib import admin
+from django.db import connection
 from django.db.models import Model
 from django.db.models.query import QuerySet
 from django.http import Http404
-from django.db import connection
-from django_tenants.utils import get_public_schema_name
-from django.contrib import admin
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django_tenants.utils import get_public_schema_name
 from rest_framework import serializers
 from rest_framework import status as http_status
 from rest_framework.exceptions import NotFound
@@ -55,8 +55,6 @@ def inline_serializer(*, fields, data=None, **kwargs):
 
 
 # core/common/admin_utils.py
-
-
 
 
 def register_tenant_only_model(model):

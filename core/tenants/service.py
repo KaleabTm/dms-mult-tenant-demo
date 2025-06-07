@@ -1,16 +1,18 @@
-from .models import Tenant, Domain  # Adjust import path as needed
 import re
-from .models import Tenant, Domain
+
+from .models import Domain, Tenant  # Adjust import path as needed
+
 
 def extract_subdomain(domain_url: str) -> str:
     """
     Extract a schema-safe subdomain from a full domain.
     Example: 'tenant1.example.com' -> 'tenant1'
     """
-    subdomain = domain_url.split('.')[0].lower()
+    subdomain = domain_url.split(".")[0].lower()
     # clean to match schema rules: lowercase, no dashes/spaces
-    subdomain = re.sub(r'[^a-z0-9_]', '_', subdomain)
-    return subdomain
+
+    return re.sub(r"[^a-z0-9_]", "_", subdomain)
+
 
 def tenant_create(
     tenant_name_am: str,
@@ -18,7 +20,7 @@ def tenant_create(
     phone_number: str,
     domain_url: str,
     paid_until=None,
-    on_trial=None
+    on_trial=None,
 ) -> Tenant:
     slug = extract_subdomain(domain_url)
 
@@ -35,7 +37,7 @@ def tenant_create(
     Domain.objects.create(
         domain=domain_url,
         tenant=tenant,
-        is_primary=True
+        is_primary=True,
     )
 
     return tenant
